@@ -1,0 +1,63 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workspace": {
+            "type": "String"
+        }
+    },
+    "resources": [
+        {
+            "id": "[concat(resourceId('Microsoft.OperationalInsights/workspaces/providers', parameters('workspace'), 'Microsoft.SecurityInsights'),'/AutomationRules/de8f42d5-b609-442c-a5f2-1813d352bb68')]",
+            "name": "[concat(parameters('workspace'),'/Microsoft.SecurityInsights/de8f42d5-b609-442c-a5f2-1813d352bb68')]",
+            "type": "Microsoft.OperationalInsights/workspaces/providers/AutomationRules",
+            "apiVersion": "2024-04-01-preview",
+            "properties": {
+                "displayName": "New Rules",
+                "order": 2,
+                "triggeringLogic": {
+                    "isEnabled": true,
+                    "triggersOn": "Incidents",
+                    "triggersWhen": "Created",
+                    "conditions": [
+                        {
+                            "conditionType": "Property",
+                            "conditionProperties": {
+                                "propertyName": "IncidentProviderName",
+                                "operator": "Equals",
+                                "propertyValues": [
+                                    "Azure Sentinel"
+                                ]
+                            }
+                        },
+                        {
+                            "conditionType": "Property",
+                            "conditionProperties": {
+                                "propertyName": "IncidentSeverity",
+                                "operator": "Equals",
+                                "propertyValues": [
+                                    "Low"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "actions": [
+                    {
+                        "order": 2,
+                        "actionType": "ModifyProperties",
+                        "actionConfiguration": {
+                            "severity": "Medium",
+                            "status": null,
+                            "classification": null,
+                            "classificationReason": null,
+                            "classificationComment": null,
+                            "owner": null,
+                            "labels": null
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
