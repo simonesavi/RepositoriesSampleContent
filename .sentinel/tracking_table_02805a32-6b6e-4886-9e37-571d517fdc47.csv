@@ -1,0 +1,5 @@
+FileName, CommitSha
+sentinel-deployment.config,d0176f11505175ced27cc0d3ede6f708fe7e120e
+AutomationRules/ARM/SampleAutomationRule.json,38afd7cd8dab689e2fce7fb15f79201494658a6d
+AutomationRules/Bicep/SampleAutomationRule.bicep,9373730781a26b504df694fe785fab5bf3ff586b
+
